@@ -1,0 +1,4 @@
+# ignore files commonly seen in a python project
+/captured/
+__pycache__/
+log.txt
