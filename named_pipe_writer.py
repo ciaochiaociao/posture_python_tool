@@ -7,17 +7,21 @@ def cleanup(handle):
     win32file.CloseHandle(handle)
     print("Named Pipe Handle closed.")
 
-def writer():
+def connect_pipe(pipe_name="hmx_pipe"):
+    print("Creating a named pipe...")
+    handle = win32pipe.CreateNamedPipe(
+        f'\\\\.\\pipe\\' + pipe_name,
+        win32pipe.PIPE_ACCESS_OUTBOUND,
+        win32pipe.PIPE_TYPE_MESSAGE | win32pipe.PIPE_WAIT,
+        1, 65536, 65536, 0, None)
+    print("Waiting for a connection...")
+    win32pipe.ConnectNamedPipe(handle, None)
+    print("Connected.")
+    return handle
+
+def interactive_writer():
     while True:
-        print("Creating a named pipe...")
-        handle = win32pipe.CreateNamedPipe(
-            r'\\.\pipe\hmx_pipe',
-            win32pipe.PIPE_ACCESS_OUTBOUND,
-            win32pipe.PIPE_TYPE_MESSAGE | win32pipe.PIPE_WAIT,
-            1, 65536, 65536, 0, None)
-        print("Waiting for a connection...")
-        win32pipe.ConnectNamedPipe(handle, None)
-        print("Connected.")
+        handle = connect_pipe()
         msg = input("Message: ")
         while msg:
             try:
@@ -29,6 +33,7 @@ def writer():
                 cleanup(handle)
                 break
         cleanup(handle)
+
 
 if __name__ == '__main__':
     writer()

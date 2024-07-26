@@ -21,11 +21,13 @@ Log = logging.getLogger(HxLogger.MAIN_SCRIPT)
 def create_temp_shm(name, size):
     global temp_dir, temp_file_path, mm, temp_file
     # Create a temporary directory
-    temp_dir = tempfile.mkdtemp()
-    temp_file_path = os.path.join(temp_dir, name)
+    # temp_dir = tempfile.mkdtemp()
+    # temp_file_path = os.path.join(temp_dir, name)
+    temp_file_path = tempfile.gettempdir() + '/' + name
 
     # Open the file for reading and writing
     temp_file = open(temp_file_path, 'w+b')
+    print("temp_file_path:", temp_file_path)
     # Ensure the file is of the specified size
     temp_file.truncate(size)
         
@@ -45,7 +47,7 @@ def cleanup_temp_shm():
 if __name__ == '__main__':
     HxLogger.setup()
     HxLogger.addStdOut()
-    
+
     # Example usage
     create_temp_shm("hmx_shm", 1024)
 
@@ -69,10 +71,14 @@ if __name__ == '__main__':
             print('bd_infos = %s' % bd_infos)
             print('bd_num_of_detection = %d' % bd_num_of_detection)
             fd_infos = detected_info['fd_infos']
-            fd_num_of_detection = detected_info['fd_num_of_detection']
+            fd_num_of_detection: int = detected_info['fd_num_of_detection']
             print('fd_infos = %s' % fd_infos)
             print('fd_num_of_detection = %d' % fd_num_of_detection)
             # input("bd_infos and fd_infos above ^^^")
+            print("bd_num_of_detection.to_bytes(1, byteorder='big'):", bd_num_of_detection.to_bytes(1, byteorder='big'))
+            print("bd_num_of_detection.to_bytes(2, byteorder='big'):", bd_num_of_detection.to_bytes(2, byteorder='big'))
+            print("bd_num_of_detection.to_bytes(1, byteorder='little'):", bd_num_of_detection.to_bytes(1, byteorder='little'))
+            mm[:1] = bd_num_of_detection.to_bytes(1, byteorder='big')
 
         # Get JPEG.
         JpegFrame = intf_cmd.GetJpeg(timeout=1)
