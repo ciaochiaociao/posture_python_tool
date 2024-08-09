@@ -36,4 +36,4 @@ def interactive_writer():
 
 
 if __name__ == '__main__':
-    writer()
+    interactive_writer()
