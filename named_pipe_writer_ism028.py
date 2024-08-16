@@ -38,7 +38,7 @@ if __name__ == '__main__':
         # Get Metadata.
         MetaData = intf_cmd.GetMetaData(timeout=1)
         if MetaData:
-            # input("MetaData: %s" % MetaData)
+            input("MetaData: %s" % MetaData)
             detected_info = GetDetectInfo(MetaData)
             bd_infos = detected_info['bd_infos']
             bd_num_of_detection = detected_info['bd_num_of_detection']
