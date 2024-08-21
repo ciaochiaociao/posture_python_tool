@@ -36,7 +36,15 @@ If you just want to start the ISM028 as a slave, you can run the following comma
 (listener) $ python start_ism028.py
 ```
 
-If you want to run it with a GUI interface to interact with, run
+This is useful for the use case of keyword spotting:
+```bash
+(listener) $ python start_ism028.py
+
+# in an another shell
+(listener) $ python kws_listener.py
+```
+
+If you want to run it with a GUI interface to have a look at, run
 ```bash
 (lilstener) $ python app_spis_tool_ism028_demo.py
 ```
