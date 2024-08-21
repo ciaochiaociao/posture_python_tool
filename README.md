@@ -36,3 +36,7 @@ If you just want to start the ISM028 as a slave, you can run the following comma
 (listener) $ python start_ism028.py
 ```
 
+If you want to run it with a GUI interface to interact with, run
+```bash
+(lilstener) $ python app_spis_tool_ism028_demo.py
+```
