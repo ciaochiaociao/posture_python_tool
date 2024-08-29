@@ -11,7 +11,20 @@ Install miniconda / anaconda if you don't have one.
 ```
 
 ## How to run
-Run the listener for the metadata transfer event by named pipe:
+Run the writer and the listener by Websocket:
+
+```bash
+(base) $ conda activate listener
+(listener) $ python websockets_writer_ism028_simulation.py
+
+# In another terminal
+(listener) $ python websockets_reader_metadata_buffer.py  # write to PostgreSQL Database
+
+# An example listener
+(listener) $ python websockets_listener.py
+```
+
+Run the listener for the metadata transfer event by named pipe (deprecated):
 ```bash
 (base) $ conda activate listener
 (listener) $ python named_pipe_writer_ism028.py
