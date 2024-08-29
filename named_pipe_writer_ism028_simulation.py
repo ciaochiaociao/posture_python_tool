@@ -11,7 +11,7 @@ def cleanup(handle):
     print("Named Pipe Handle closed.")
 
 def connect_pipe(pipe_name="hmx_pipe"):
-    print("Creating a named pipe...")
+    print("Creating a named pipe called %s" % pipe_name)
     handle = win32pipe.CreateNamedPipe(
         f'\\\\.\\pipe\\' + pipe_name,
         win32pipe.PIPE_ACCESS_OUTBOUND,
@@ -38,7 +38,8 @@ def interactive_writer():
         cleanup(handle)
 
 def simulate_ism028():
-    named_piper = connect_pipe()
+    named_piper = connect_pipe(pipe_name='hmx_pipe')
+    named_piper2 = connect_pipe(pipe_name='hmx_pipe2')
     start_time = time.time()
     i = 0
     while True:
@@ -60,6 +61,7 @@ def simulate_ism028():
 
         msg = str(info)
         win32file.WriteFile(named_piper, msg.encode())
+        win32file.WriteFile(named_piper2, msg.encode())
         time.sleep(0.1)
         i += 1
         if (i % 10) == 0:

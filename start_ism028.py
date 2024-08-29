@@ -10,3 +10,5 @@ if __name__ == '__main__':
     HxLogger.setup()
     HxLogger.addStdOut()
     intf_cmd = HmxSpiSlaveCommand(get_meta=True, get_jpeg=True, get_raw=False)
+    MetaData = intf_cmd.GetMetaData(timeout=1)
+    print("MetaData:", MetaData)
