@@ -24,6 +24,9 @@ Run the writer and the listener by Websocket:
 (listener) $ python websockets_listener.py
 ```
 
+---
+## Named pipe (deprecated)
+
 Run the listener for the metadata transfer event by named pipe (deprecated):
 ```bash
 (base) $ conda activate listener
